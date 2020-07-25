@@ -52,7 +52,7 @@ class StartProject extends Command
     public function handle(): int
     {
         if (!file_exists(__DIR__.'/start.lock') && config('app.env') !== 'testing') {
-            return 0;
+            //return 0;
         }
 
         // Set up the basics
