@@ -15,7 +15,7 @@ class LivewireAdministerSurveyTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    private $survey;
+    private Survey $survey;
     private array $snapshots;
     private array $respondent;
     private array $answers = [];
