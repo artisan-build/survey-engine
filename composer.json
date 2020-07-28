@@ -14,6 +14,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "fruitcake/laravel-cors": "^1.0",
         "fzaninotto/faker": "^1.9.1",
+        "goldspecdigital/laravel-eloquent-uuid": "^7.0",
         "grosv/blade-components": "*",
         "grosv/eloquent-sheets": "^1.2",
         "guzzlehttp/guzzle": "^6.3",

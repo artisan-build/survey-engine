@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Receipt;
+use App\Response;
 use App\Survey;
 use Livewire\Component;
 
@@ -13,6 +15,7 @@ class AdministerSurvey extends Component
     public $respondentIdentificationOptIn = false;
 
     // Survey data
+    public $surveyId;
     public $questions;
     public $responses;
     public $rules;
@@ -32,6 +35,7 @@ class AdministerSurvey extends Component
         $this->responses = $survey->responses;
         $this->rules = $survey->rules;
         $this->anonymous = $survey->anonymous;
+        $this->surveyId = $survey->id;
         $this->nextQuestion();
     }
 
@@ -44,8 +48,15 @@ class AdministerSurvey extends Component
         }
 
         // Save survey responses
+        Response::create([
+            'survey_id' => $this->surveyId,
+            'responses' => $this->responses,
+        ]);
 
         // Create receipt using hash of email
+        Receipt::create([
+            'respondent' => md5($this->email),
+        ]);
 
         // Post to Contest Kit if applicable.
     }
