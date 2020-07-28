@@ -9,7 +9,6 @@ class WelcomeTest extends TestCase
     /** @test */
     public function it_can_load_the_page()
     {
-        $this->markTestSkipped();
         $this->get(route('welcome'))
             ->assertOk()
             ->assertSee('r::welcome');

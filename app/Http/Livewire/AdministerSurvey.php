@@ -17,6 +17,10 @@ class AdministerSurvey extends Component
     public $responses;
     public $rules;
     public $anonymous;
+    public $content;
+    public $response;
+
+    private $view;
 
     // Current user prompt
     public $question = [];
@@ -28,6 +32,7 @@ class AdministerSurvey extends Component
         $this->responses = $survey->responses;
         $this->rules = $survey->rules;
         $this->anonymous = $survey->anonymous;
+        $this->nextQuestion();
     }
 
     public function save()
@@ -45,8 +50,41 @@ class AdministerSurvey extends Component
         // Post to Contest Kit if applicable.
     }
 
+    public function answer($q, $a)
+    {
+        if ($this->question['rules']) {
+            $this->response = $a;
+            if (!$this->validate(['response' => $this->question['rules']])) {
+                return;
+            }
+        }
+        $this->responses[$q] = $a;
+        $this->nextQuestion();
+    }
+
+    public function nextQuestion()
+    {
+        if (!$this->name || !$this->email) {
+            $this->view = 'name_email';
+            return;
+        }
+
+        if (empty($this->questions)) {
+            $this->save();
+            $this->view = 'thank_you';
+            return;
+        }
+
+        $this->question = array_shift($this->questions);
+        $this->view = $this->question['response_set'] ?? '';
+
+    }
+
     public function render()
     {
+        if ($this->view) {
+            $this->content = view('livewire.survey_views.'.$this->view)->with('question', $this->question)->toHtml();
+        }
         return view('livewire.administer-survey');
     }
 }

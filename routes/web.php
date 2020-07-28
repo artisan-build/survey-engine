@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
 
-Route::view('/', 'welcome')->name('welcome');
+Route::view('/', 'welcome')->name('welcome')->middleware('guest');

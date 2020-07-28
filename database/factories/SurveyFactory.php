@@ -8,7 +8,8 @@ use Faker\Generator as Faker;
 $factory->define(Survey::class, function (Faker $faker) {
     $questions = [];
     $sets = [
-        'mostly_false_to_mostly_true',
+        'completely_false_to_completely_true',
+        'strongly_disagree_to_strongly_agree',
         'yes_no',
         'never_to_always',
         'string',
@@ -22,7 +23,8 @@ $factory->define(Survey::class, function (Faker $faker) {
     while ($rs = array_shift($sets)) {
         $i++;
         $rules = [
-            'mostly_false_to_mostly_true' => null,
+            'completely_false_to_completely_true' => null,
+            'strongly_disagree_to_strongly_agree' => null,
             'yes_no' => null,
             'never_to_always' => null,
             'string' => 'required|max:255',
