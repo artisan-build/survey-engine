@@ -29,22 +29,22 @@ class LivewireAdministerSurveyTest extends TestCase
 
         $this->snapshots = [
             'rules' => [
-                "required|max:255",
-                "required",
-                "required|date",
-                "required|numeric|max:1000|min:1",
-                "required|numeric|max:1000|min:1",
+                'required|max:255',
+                'required',
+                'required|date',
+                'required|numeric|max:1000|min:1',
+                'required|numeric|max:1000|min:1',
             ],
             'responses' => [
-                "Q1" => null,
-                "Q2" => null,
-                "Q3" => null,
-                "Q4" => null,
-                "Q5" => null,
-                "Q6" => null,
-                "Q7" => null,
-                "Q8" => null,
-                "Q9" => null,
+                'Q1' => null,
+                'Q2' => null,
+                'Q3' => null,
+                'Q4' => null,
+                'Q5' => null,
+                'Q6' => null,
+                'Q7' => null,
+                'Q8' => null,
+                'Q9' => null,
             ],
             'answers' => [
                 'COMPLETELY_FALSE',
@@ -54,8 +54,8 @@ class LivewireAdministerSurveyTest extends TestCase
                 $this->faker->sentence,
                 $this->faker->paragraphs(3, true),
                 Carbon::now()->format('m/d/Y'),
-                $this->faker->numberBetween(1,100),
-                $this->faker->randomFloat(2 ,0, 100)
+                $this->faker->numberBetween(1, 100),
+                $this->faker->randomFloat(2, 0, 100),
             ],
         ];
 
@@ -114,6 +114,5 @@ class LivewireAdministerSurveyTest extends TestCase
 
         $this->assertDatabaseHas('receipts', ['respondent' => md5($this->respondent['email'])]);
         $this->assertEqualsCanonicalizing(Response::first()->responses, $this->answers);
-
     }
 }

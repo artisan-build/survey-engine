@@ -20,6 +20,7 @@ class Survey extends Model
         foreach ($this->questions as $question) {
             $responses[$question['key']] = null;
         }
+
         return $responses;
     }
 
@@ -27,10 +28,11 @@ class Survey extends Model
     {
         $rules = [];
         foreach ($this->questions as $question) {
-            if (!is_null($question['rules'])) {
+            if (! is_null($question['rules'])) {
                 $rules[] = $question['rules'];
             }
         }
+
         return $rules;
     }
 }

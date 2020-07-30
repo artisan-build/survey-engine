@@ -31,7 +31,7 @@ $factory->define(Survey::class, function (Faker $faker) {
             'text' => 'required',
             'date' => 'required|date',
             'number' => 'required|numeric|max:1000|min:1',
-            'currency' => 'required|numeric|max:1000|min:1'
+            'currency' => 'required|numeric|max:1000|min:1',
         ];
         $questions[] = [
             'key' => 'Q'.$i,
@@ -40,6 +40,7 @@ $factory->define(Survey::class, function (Faker $faker) {
             'rules' => $rules[$rs],
         ];
     }
+
     return [
         'title' => $faker->sentence,
         'description' => $faker->paragraphs(3, true),

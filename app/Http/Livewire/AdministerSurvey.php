@@ -28,7 +28,6 @@ class AdministerSurvey extends Component
     // Current user prompt
     public $question = [];
 
-
     public function mount(Survey $survey)
     {
         $this->questions = $survey->questions;
@@ -43,7 +42,7 @@ class AdministerSurvey extends Component
     {
         // We do not even prompt to ask permission to save respondent data with the survey results if the survey is
         // anonymous and we only store it if the user gives consent.
-        if (!$this->anonymous && $this->respondentIdentificationOptIn) {
+        if (! $this->anonymous && $this->respondentIdentificationOptIn) {
             $this->responses['respondent'] = ['name' => $this->name, 'email' => $this->email];
         }
 
@@ -65,7 +64,7 @@ class AdministerSurvey extends Component
     {
         if ($this->question['rules']) {
             $this->response = $a;
-            if (!$this->validate(['response' => $this->question['rules']])) {
+            if (! $this->validate(['response' => $this->question['rules']])) {
                 return;
             }
         }
@@ -75,20 +74,21 @@ class AdministerSurvey extends Component
 
     public function nextQuestion()
     {
-        if (!$this->name || !$this->email) {
+        if (! $this->name || ! $this->email) {
             $this->view = 'name_email';
+
             return;
         }
 
         if (empty($this->questions)) {
             $this->save();
             $this->view = 'thank_you';
+
             return;
         }
 
         $this->question = array_shift($this->questions);
         $this->view = $this->question['response_set'] ?? '';
-
     }
 
     public function render()
@@ -96,6 +96,7 @@ class AdministerSurvey extends Component
         if ($this->view) {
             $this->content = view('livewire.survey_views.'.$this->view)->with('question', $this->question)->toHtml();
         }
+
         return view('livewire.administer-survey');
     }
 }

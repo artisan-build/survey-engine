@@ -25,7 +25,7 @@ class CreateLocalDatabase
             return false;
         }
 
-        if (!$conn->query('CREATE DATABASE '.$this->db_name)) {
+        if (! $conn->query('CREATE DATABASE '.$this->db_name)) {
             return false;
         }
 
