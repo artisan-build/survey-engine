@@ -2,10 +2,16 @@
 
 namespace App;
 
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Survey extends Model
 {
+    use Uuid;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $casts = [
         'questions' => 'array',
     ];

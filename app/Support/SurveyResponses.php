@@ -25,4 +25,6 @@ class SurveyResponses
     // yes_no
     const YES = 'Yes';
     const NO = 'No';
+    // utility
+    const NEXT = 'Next &raquo;';
 }

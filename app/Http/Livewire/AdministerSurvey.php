@@ -16,14 +16,16 @@ class AdministerSurvey extends Component
 
     // Survey data
     public $surveyId;
+    public $title;
     public $questions;
     public $responses;
     public $rules;
     public $anonymous;
     public $content;
     public $response;
+    public $showAnonymous = false;
 
-    private $view;
+    public $view;
 
     // Current user prompt
     public $question = [];
@@ -35,6 +37,20 @@ class AdministerSurvey extends Component
         $this->rules = $survey->rules;
         $this->anonymous = $survey->anonymous;
         $this->surveyId = $survey->id;
+        $this->title = $survey->title;
+        if ($this->anonymous) {
+            $this->name = 'Anonymous';
+        }
+
+        // DELETE BELOW
+        if (config('app.env') !== 'testing') {
+            $this->email = 'ed@gros.co';
+            for ($i = 0; $i < 9; $i++) {
+                array_shift($this->questions);
+            }
+        }
+
+        // DELETE ABOVE
         $this->nextQuestion();
     }
 
@@ -54,6 +70,7 @@ class AdministerSurvey extends Component
 
         // Create receipt using hash of email
         Receipt::create([
+            'survey_id' => $this->surveyId,
             'respondent' => md5($this->email),
         ]);
 
@@ -62,13 +79,29 @@ class AdministerSurvey extends Component
 
     public function answer($q, $a)
     {
-        if ($this->question['rules']) {
+        if ($q === 'email') {
+            if (!$this->validate(['email' => 'email|required'])) {
+                return;
+            }
+            if (Receipt::where('respondent', md5($this->email))->where('survey_id', $this->surveyId)->count() > 0) {
+                $this->addError('email', 'You have already completed this survey.');
+                return;
+            }
+        }
+
+        if ($a === '___RESPONSE___') {
+            $a = $this->response;
+        }
+
+        if ($this->question['rules'] ?? '') {
             $this->response = $a;
             if (! $this->validate(['response' => $this->question['rules']])) {
                 return;
             }
         }
+
         $this->responses[$q] = $a;
+        $this->response = '';
         $this->nextQuestion();
     }
 
@@ -82,6 +115,8 @@ class AdministerSurvey extends Component
 
         if (empty($this->questions)) {
             $this->save();
+            $this->question['question'] = '';
+            $this->question['key'] = '';
             $this->view = 'thank_you';
 
             return;
@@ -93,10 +128,6 @@ class AdministerSurvey extends Component
 
     public function render()
     {
-        if ($this->view) {
-            $this->content = view('livewire.survey_views.'.$this->view)->with('question', $this->question)->toHtml();
-        }
-
         return view('livewire.administer-survey');
     }
 }

@@ -15,6 +15,7 @@ class CreateReceiptsTable extends Migration
     {
         Schema::create('receipts', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('survey_id');
             $table->string('respondent', 60);
         });
     }

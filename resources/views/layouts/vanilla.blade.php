@@ -1,5 +1,5 @@
 <div id="app" class="min-h-screen bg-white">
-    <nav class="bg-white border-b border-gray-200">
+    <nav class="bg-white border-b border-gray-200 hidden lg:block">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
@@ -14,17 +14,10 @@
         </div>
     </nav>
 
-    <div class="py-10">
+    <div class="lg:py-10">
         <main class="bg-white overflow-hidden  border-gray-50 rounded-lg shadow-lg">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 lg:pb-32">
-                <div class="flex">
-                    <div class="hidden lg:inline-block lg:w-2/12">
-                        <img class="w-32" src="https://d39k5lii6iri8c.cloudfront.net/67a213e8-30b1-46bf-84ec-0054f65d95d8/images/bunny.svg" alt="">
-                    </div>
-                    <div class="w-full lg:w-10/12">
-                        @yield('content')
-                    </div>
-                </div>
+                @yield('content')
             </div>
         </main>
     </div>

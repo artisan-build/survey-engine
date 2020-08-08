@@ -2,4 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('welcome')->middleware('guest');
+Route::group(['middleware' => 'guest'], function () {
+    Route::view('/', 'welcome')->name('welcome');
+    Route::view('/survey/{survey}', 'survey');
+});

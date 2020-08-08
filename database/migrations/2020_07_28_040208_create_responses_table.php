@@ -15,7 +15,7 @@ class CreateResponsesTable extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('survey_id');
+            $table->uuid('survey_id');
             $table->json('responses');
             $table->timestamps();
         });
