@@ -80,11 +80,12 @@ class AdministerSurvey extends Component
     public function answer($q, $a)
     {
         if ($q === 'email') {
-            if (!$this->validate(['email' => 'email|required'])) {
+            if (! $this->validate(['email' => 'email|required'])) {
                 return;
             }
             if (Receipt::where('respondent', md5($this->email))->where('survey_id', $this->surveyId)->count() > 0) {
                 $this->addError('email', 'You have already completed this survey.');
+
                 return;
             }
         }
