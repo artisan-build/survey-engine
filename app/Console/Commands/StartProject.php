@@ -51,7 +51,7 @@ class StartProject extends Command
 
     public function handle(): int
     {
-        if (!file_exists(__DIR__.'/start.lock') && config('app.env') !== 'testing') {
+        if (! file_exists(__DIR__.'/start.lock') && config('app.env') !== 'testing') {
             //return 0;
         }
 
@@ -113,11 +113,9 @@ class StartProject extends Command
             Config::set('database.db_username', $db_username);
             Config::set('database.db_password', $db_password);
 
-
-            if (!(new CreateLocalDatabase($db_database))->execute()) {
+            if (! (new CreateLocalDatabase($db_database))->execute()) {
                 $this->error('There was a problem creating the database.');
             }
-
         }
 
         if ($this->confirm('Do you want to install Eloquent Sheets?', 'Yes')) {

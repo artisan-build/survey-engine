@@ -24,6 +24,6 @@ return [
         'laravel-passwordless-login' => [
             'path' => env('LGW_REPOS_PASSWORDLESS_PATH', '../../../Packages/grosv/laravel-passwordless-login'),
             'version' => '^1.2',
-        ]
+        ],
     ],
 ];

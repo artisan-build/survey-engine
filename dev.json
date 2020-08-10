@@ -1,12 +1,13 @@
 {
     "require": {
-        "grosv/eloquent-sheets": "dev-main",
-        "grosv/laravel-passwordless-login": "dev-main",
+        "grosv/eloquent-sheets": "*",
+        "grosv/laravel-passwordless-login": "*",
+        "grosv/shiftable-configs": "dev-main",
         "wikimedia/composer-merge-plugin": "^1.4"
     },
     "require-dev": {
-        "grosv/laravel-git-workflow": "dev-main",
-        "grosv/stubby": "dev-main"
+        "grosv/laravel-git-workflow": "*",
+        "grosv/stubby": "*"
     },
     "config": {
         "optimize-autoloader": true,

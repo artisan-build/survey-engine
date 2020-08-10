@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Survey;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,13 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        $this->bind('survey', function ($value) {
+            $survey = Survey::find($value);
+            View::share('survey', $survey);
+
+            return $survey;
+        });
     }
 
     /**
